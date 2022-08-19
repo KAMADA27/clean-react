@@ -48,7 +48,7 @@ const SignUp: React.FC<Props> = ({
       passwordConfirmationError,
       isFormInvalid: !!nameError || !!emailError || !!passwordError || !!passwordConfirmationError
     })
-  }, [state.name])
+  }, [state.name, state.email, state.password, state.passwordConfirmation])
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
