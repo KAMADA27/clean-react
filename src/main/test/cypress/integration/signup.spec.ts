@@ -2,12 +2,16 @@ import * as FormHelper from '../support/form-helper'
 import * as Http from '../support/signup-mocks'
 import faker from 'faker'
 
-const simulateValidSubmit = (): void => {
+const populateFields = (): void => {
   const password = faker.random.alphaNumeric(5)
   cy.getByTestId('name').type(faker.name.findName())
   cy.getByTestId('email').type(faker.internet.email())
   cy.getByTestId('password').type(password)
   cy.getByTestId('passwordConfirmation').type(password)
+}
+
+const simulateValidSubmit = (): void => {
+  populateFields()
   cy.getByTestId('submit').click()
 }
 
@@ -79,5 +83,12 @@ describe('SignUp', () => {
     cy.getByTestId('error-wrap').should('not.have.descendants')
     FormHelper.testUrl('/')
     FormHelper.testLocalStorageItem('accessToken')
+  })
+
+  it('Should prevent multiple submits', () => {
+    Http.mockOk()
+    populateFields()
+    cy.getByTestId('submit').dblclick()
+    FormHelper.testHttpCallsCount(1)
   })
 })
