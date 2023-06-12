@@ -1,4 +1,4 @@
-import { SaveAccessToken } from '@/domain/usecases/save-access-token'
+import { SaveAccessToken } from '@/domain/usecases/update-current-account'
 import { SetStorage } from '@/data/protocols/cache/setStorage'
 import { UnexpectedError } from '@/domain/errors'
 
